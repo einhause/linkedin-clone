@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import LoginNav from '../components/Login/LoginNav';
 import Hero from '../components/Login/Hero';
+import GoogleForm from '../components/Login/GoogleForm';
 
 function Login() {
   return (
@@ -9,6 +10,7 @@ function Login() {
       <LoginNav />
       <Section>
         <Hero />
+        <GoogleForm />
       </Section>
     </Container>
   );
@@ -36,5 +38,6 @@ const Section = styled.section`
   @media (max-width: 768px) {
     margin: auto;
     min-height: 0px;
+    justify-content: center;
   }
 `;
