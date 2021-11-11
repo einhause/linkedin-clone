@@ -44,7 +44,7 @@ export default NavItem;
 
 const SignOutDropDown = styled.div`
   position: absolute;
-  top: 2.75rem;
+  top: 2.5rem;
   background: white;
   border-radius: 0 0 0.625rem 0.625rem;
   width: 6.25rem;
