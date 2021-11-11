@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function GoogleForm() {
+function GoogleForm(): JSX.Element {
   return (
     <Form>
       <GoogleButton>

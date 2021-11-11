@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function SignInButton() {
+function SignInButton(): JSX.Element {
   return <Button>Sign In</Button>;
 }
 

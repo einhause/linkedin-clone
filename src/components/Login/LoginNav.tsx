@@ -3,7 +3,7 @@ import Brand from './Brand';
 import JoinButton from './JoinButton';
 import SignInButton from './SignInButton';
 
-function LoginNav() {
+function LoginNav(): JSX.Element {
   return (
     <Nav>
       <Brand />

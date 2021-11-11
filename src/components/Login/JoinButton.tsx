@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function JoinButton() {
+function JoinButton(): JSX.Element {
   return <Button>Join Now</Button>;
 }
 

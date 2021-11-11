@@ -4,7 +4,7 @@ import LoginNav from '../components/Login/LoginNav';
 import Hero from '../components/Login/Hero';
 import GoogleForm from '../components/Login/GoogleForm';
 
-function Login() {
+function Login(): JSX.Element {
   return (
     <Container>
       <LoginNav />

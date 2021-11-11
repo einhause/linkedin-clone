@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function Hero() {
+function Hero(): JSX.Element {
   return (
     <HeroContainer>
       <h1>Welcome to your professional community</h1>

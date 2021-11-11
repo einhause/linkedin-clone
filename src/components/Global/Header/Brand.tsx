@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function Brand(): JSX.Element {
+function Brand() {
   return (
     <BrandContainer>
-      <Link to='/'>
-        <img src='/images/login-logo.svg' alt='Login' />
+      <Link to='/home'>
+        <img src='/images/home-logo.svg' alt='Brand' />
       </Link>
     </BrandContainer>
   );
@@ -14,10 +14,6 @@ function Brand(): JSX.Element {
 export default Brand;
 
 const BrandContainer = styled.span`
-  width: 8.5rem;
-  height: 2.2rem;
-
-  @media (max-width: 768px) {
-    padding: 0 0.65rem;
-  }
+  margin-right: 0.5rem;
+  font-size: 0rem;
 `;
