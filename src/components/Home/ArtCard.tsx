@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import Connections from './Connections';
+import MyItems from './MyItems';
+
 function ArtCard(): JSX.Element {
   return (
     <Container>
       <UserInfo>
         <CardBackground />
+
         <StyledLink to='/home'>
           <Photo />
           <Greeting>Welcome, there!</Greeting>
@@ -14,6 +18,10 @@ function ArtCard(): JSX.Element {
           <AddPhotoText>Add a photo</AddPhotoText>
         </StyledLink>
       </UserInfo>
+
+      <Connections />
+
+      <MyItems />
     </Container>
   );
 }
