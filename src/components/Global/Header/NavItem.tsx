@@ -16,7 +16,6 @@ function NavItem(props: NavItemProps): JSX.Element {
     <NavListItem
       className={isActive ? 'active' : ''}
       borderLeft={isWorkItem as boolean}
-      showUserDropDownOnHover={isUserItem as boolean}
     >
       <StyledLink to={link}>
         <img src={imgSrc} alt={spanText} />
@@ -57,7 +56,6 @@ const SignOutDropDown = styled.div`
 
 interface NavListItemProps {
   borderLeft?: boolean;
-  showUserDropDownOnHover: boolean;
 }
 const NavListItem = styled.li<NavListItemProps>`
   display: flex;
