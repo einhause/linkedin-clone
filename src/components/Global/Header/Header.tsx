@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import Brand from './Brand';
 import Search from './Search';
+import GlobalNav from './GlobalNav';
 
 function Header(): JSX.Element {
   return (
@@ -9,6 +10,7 @@ function Header(): JSX.Element {
       <Content>
         <Brand />
         <Search />
+        <GlobalNav />
       </Content>
     </Container>
   );
@@ -16,7 +18,7 @@ function Header(): JSX.Element {
 
 export default Header;
 
-const Container = styled.nav`
+const Container = styled.header`
   background-color: white;
   border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.08);
   left: 0;
