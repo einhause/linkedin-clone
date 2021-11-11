@@ -31,14 +31,13 @@ function GlobalNav(): JSX.Element {
           imgSrc='/images/user.svg'
           link='/home'
           spanText='Me'
-          isDropDown
+          isUserItem
         />
         <NavItem
           imgSrc='/images/nav-work.svg'
           link='/home'
           spanText='Work'
-          borderLeft
-          isDropDown
+          isWorkItem
         />
       </NavList>
     </Nav>

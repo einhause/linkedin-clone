@@ -6,29 +6,58 @@ interface NavItemProps {
   spanText: string;
   link: string;
   isActive?: boolean;
-  isDropDown?: boolean;
-  borderLeft?: boolean;
+  isUserItem?: boolean;
+  isWorkItem?: boolean;
 }
 
 function NavItem(props: NavItemProps): JSX.Element {
-  const { imgSrc, spanText, link, isActive, isDropDown, borderLeft } = props;
+  const { imgSrc, spanText, link, isActive, isUserItem, isWorkItem } = props;
   return (
-    <NavListItem className={isActive ? 'active' : ''} borderLeft={borderLeft}>
+    <NavListItem
+      className={isActive ? 'active' : ''}
+      borderLeft={isWorkItem as boolean}
+      showUserDropDownOnHover={isUserItem as boolean}
+    >
       <StyledLink to={link}>
         <img src={imgSrc} alt={spanText} />
         <span>
           {spanText}
-          {isDropDown && <img src='/images/down-icon.svg' alt='Down' />}
+          {(isUserItem || isWorkItem) && (
+            <img src='/images/down-icon.svg' alt='Down' />
+          )}
         </span>
       </StyledLink>
+
+      {/* User Nav Item Only */}
+      {isUserItem && (
+        <SignOutDropDown>
+          <StyledLink to='/'>
+            <span>Sign Out</span>
+          </StyledLink>
+        </SignOutDropDown>
+      )}
     </NavListItem>
   );
 }
 
 export default NavItem;
 
+const SignOutDropDown = styled.div`
+  position: absolute;
+  top: 2.75rem;
+  background: white;
+  border-radius: 0 0 0.625rem 0.625rem;
+  width: 6.25rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  transition-duration: 167ms;
+  text-align: center;
+  display: none;
+`;
+
 interface NavListItemProps {
   borderLeft?: boolean;
+  showUserDropDownOnHover: boolean;
 }
 const NavListItem = styled.li<NavListItemProps>`
   display: flex;
@@ -36,6 +65,14 @@ const NavListItem = styled.li<NavListItemProps>`
   justify-content: center;
   border-left: ${(props) =>
     props.borderLeft ? '1px solid rgba(0, 0, 0, .08)' : 'none'};
+
+  &:hover {
+    ${SignOutDropDown} {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -69,7 +106,7 @@ const StyledLink = styled(Link)`
     align-items: center;
   }
 
-  img {
+  & > img {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
