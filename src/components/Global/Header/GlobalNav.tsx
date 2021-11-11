@@ -1,16 +1,32 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import NavItem from './NavItem';
 
 function GlobalNav(): JSX.Element {
   return (
     <Nav>
       <NavList>
-        <NavListItem>
-          <StyledLink to='/'>
-            <img src='/images/nav-home.svg' alt='Home' />
-            <span>Home</span>
-          </StyledLink>
-        </NavListItem>
+        <NavItem
+          imgSrc='/images/nav-home.svg'
+          link='/home'
+          spanText='Home'
+          isActive
+        />
+        <NavItem
+          imgSrc='/images/nav-network.svg'
+          link='/home'
+          spanText='My Network'
+        />
+        <NavItem imgSrc='/images/nav-jobs.svg' link='/home' spanText='Jobs' />
+        <NavItem
+          imgSrc='/images/nav-messaging.svg'
+          link='/home'
+          spanText='Messaging'
+        />
+        <NavItem
+          imgSrc='/images/nav-notifications.svg'
+          link='/home'
+          spanText='Notifications'
+        />
       </NavList>
     </Nav>
   );
@@ -35,41 +51,18 @@ const NavList = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   list-style-type: none;
-`;
 
-const NavListItem = styled.li`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledLink = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  flex-direction: column;
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1.5;
-  min-height: 2.625rem;
-  min-width: 5rem;
-  text-decoration: none;
-  position: relative;
-
-  @media (max-width: 768px) {
-    min-width: 4.5rem;
-  }
-
-  &:hover,
-  &:active {
-    span {
-      color: rgba(0, 0, 0, 0.9);
+  .active {
+    span::after {
+      content: '';
+      transform: scaleX(1);
+      border-bottom: 0.125rem solid white;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      transition: transform 0.2s ease-in-out;
+      width: 100%;
+      border-color: rgba(0, 0, 0, 0.9);
     }
-  }
-
-  span {
-    color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
   }
 `;

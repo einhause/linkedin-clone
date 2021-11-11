@@ -22,7 +22,7 @@ const Container = styled.header`
   background-color: white;
   border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.08);
   left: 0;
-  padding: 0.5rem 1.5rem;
+  padding: 0 1.5rem;
   position: fixed;
   top: 0;
   width: 100vw;
