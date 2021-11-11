@@ -6,15 +6,20 @@ interface NavItemProps {
   spanText: string;
   link: string;
   isActive?: boolean;
+  isDropDown?: boolean;
+  borderLeft?: boolean;
 }
 
 function NavItem(props: NavItemProps): JSX.Element {
-  const { imgSrc, spanText, link, isActive } = props;
+  const { imgSrc, spanText, link, isActive, isDropDown, borderLeft } = props;
   return (
-    <NavListItem className={isActive ? 'active' : ''}>
+    <NavListItem className={isActive ? 'active' : ''} borderLeft={borderLeft}>
       <StyledLink to={link}>
         <img src={imgSrc} alt={spanText} />
-        <span>{spanText}</span>
+        <span>
+          {spanText}
+          {isDropDown && <img src='/images/down-icon.svg' alt='Down' />}
+        </span>
       </StyledLink>
     </NavListItem>
   );
@@ -22,10 +27,15 @@ function NavItem(props: NavItemProps): JSX.Element {
 
 export default NavItem;
 
-const NavListItem = styled.li`
+interface NavListItemProps {
+  borderLeft?: boolean;
+}
+const NavListItem = styled.li<NavListItemProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-left: ${(props) =>
+    props.borderLeft ? '1px solid rgba(0, 0, 0, .08)' : 'none'};
 `;
 
 const StyledLink = styled(Link)`
@@ -57,5 +67,11 @@ const StyledLink = styled(Link)`
     color: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
+  }
+
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
   }
 `;

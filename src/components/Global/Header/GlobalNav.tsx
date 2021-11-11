@@ -27,6 +27,19 @@ function GlobalNav(): JSX.Element {
           link='/home'
           spanText='Notifications'
         />
+        <NavItem
+          imgSrc='/images/user.svg'
+          link='/home'
+          spanText='Me'
+          isDropDown
+        />
+        <NavItem
+          imgSrc='/images/nav-work.svg'
+          link='/home'
+          spanText='Work'
+          borderLeft
+          isDropDown
+        />
       </NavList>
     </Nav>
   );
@@ -66,3 +79,5 @@ const NavList = styled.ul`
     }
   }
 `;
+
+const DropDownNavItem = styled.li``;
