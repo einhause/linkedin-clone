@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 import Header from '../components/Global/Header/Header';
 import UpworkBanner from '../components/Home/UpworkBanner';
-import LeftAside from '../components/Home/LeftAside';
-import MainFeed from '../components/Home/MainFeed';
-import RightAside from '../components/Home/RightAside';
+import LeftAside from '../components/Home/LeftAside/LeftAside';
+import MainFeed from '../components/Home/MainFeed/MainFeed';
+import RightAside from '../components/Home/RightAside/RightAside';
 
 function Home(): JSX.Element {
   return (

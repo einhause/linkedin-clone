@@ -28,7 +28,7 @@ function ArtCard(): JSX.Element {
 
 export default ArtCard;
 
-const Container = styled.div`
+export const Container = styled.div`
   text-align: center;
   overflow: hidden;
   margin-bottom: 0.5rem;
