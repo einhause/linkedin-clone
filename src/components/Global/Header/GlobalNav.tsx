@@ -78,5 +78,3 @@ const NavList = styled.ul`
     }
   }
 `;
-
-const DropDownNavItem = styled.li``;

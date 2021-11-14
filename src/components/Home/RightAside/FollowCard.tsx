@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import FeedList from './FeedList';
 import Recommendations from './Recommendations';
