@@ -128,12 +128,19 @@ const UserPostInfo = styled.div`
 
     span {
       text-align: left;
+
       &:first-child {
         font-size: 0.875rem;
         font-weight: 700;
         color: rgba(0, 0, 0, 1);
+        &:hover {
+          color: #7eaddc;
+          text-decoration: underline;
+        }
       }
-      &:nth-child(n + 1) {
+
+      &:nth-child(2),
+      &:nth-child(3) {
         font-size: 0.75rem;
         color: rgba(0, 0, 0, 0.6);
       }
@@ -219,6 +226,7 @@ const Interactions = styled.div`
     padding: 0.75rem;
     color: rgba(0, 0, 0, 0.6);
     border-radius: 0.5rem;
+    transition: background-color 0.15s ease-in-out;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.08);
