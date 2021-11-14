@@ -8,18 +8,49 @@ function Article(): JSX.Element {
     <Container>
       <SharedActor>
         <StyledLink to='/home'>
-          <img src='/images/user.svg' alt='user' />
-          <div>
-            <span>Title</span>
-            <span>Info</span>
-            <span>Date</span>
-          </div>
+          <UserPostInfo>
+            <UserImg src='/images/user.svg' alt='user' />
+            <div>
+              <span>Title</span>
+              <span>Info</span>
+              <span>Date</span>
+            </div>
+          </UserPostInfo>
         </StyledLink>
         <button>
           <img src='/images/ellipsis.svg' alt='more' />
         </button>
       </SharedActor>
-      <Description></Description>
+      <Description>Des</Description>
+      <SharedImgContainer>
+        <StyledLink to='/home'>
+          <img src='/images/trees.jpeg' alt='sharedimg' />
+        </StyledLink>
+      </SharedImgContainer>
+      <SocialCounts>
+        <li>
+          <button>
+            <img
+              src='https://static-exp1.licdn.com/sc/h/8ekq8gho1ruaf8i7f86vd1ftt'
+              alt='likes'
+            />
+            <img
+              src='https://static-exp1.licdn.com/sc/h/b1dl5jk88euc7e9ri50xy5qo8'
+              alt='praise'
+            />
+            <img
+              src='https://static-exp1.licdn.com/sc/h/cpho5fghnpme8epox8rdcds22'
+              alt='empathy'
+            />
+            <span>75</span>
+          </button>
+        </li>
+        <li>
+          <CommentLinkContainer>
+            <StyledLink to='/home'>2 comments</StyledLink>
+          </CommentLinkContainer>
+        </li>
+      </SocialCounts>
     </Container>
   );
 }
@@ -41,25 +72,32 @@ const SharedActor = styled.div`
   align-items: center;
 
   button {
+    cursor: pointer;
     position: absolute;
     right: 0.75rem;
-    top: 0;
+    top: 0.75rem;
     background: transparent;
     border: none;
     outline: none;
   }
 `;
 
+const UserImg = styled.img``;
+
 const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const UserPostInfo = styled.div`
   margin-right: 0.75rem;
   flex-grow: 1;
   overflow: hidden;
   display: flex;
-  text-decoration: none;
 
-  img {
+  ${UserImg} {
     width: 3rem;
     height: 3rem;
+    border-radius: 50%;
   }
 
   & > div {
@@ -82,5 +120,60 @@ const StyledLink = styled(Link)`
         color: rgba(0, 0, 0, 0.6);
       }
     }
+  }
+`;
+
+const Description = styled.div`
+  padding: 0 1rem;
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 0.875rem;
+  text-align: left;
+`;
+
+const SharedImgContainer = styled.div`
+  margin-top: 0.5rem;
+  width: 100%;
+  display: block;
+  background-color: #f9fafb;
+  position: relative;
+
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const SocialCounts = styled.ul`
+  line-height: 1.3;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: auto;
+  margin: 0 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9e5df;
+  list-style: none;
+
+  li {
+    font-size: 0.75rem;
+
+    button {
+      cursor: pointer;
+      display: flex;
+    }
+
+    span {
+      color: rgba(0, 0, 0, 0.6);
+      align-self: center;
+      margin-left: 0.25rem;
+    }
+  }
+`;
+
+const CommentLinkContainer = styled.div`
+  & > ${StyledLink} {
+    color: rgba(0, 0, 0, 0.6);
   }
 `;
