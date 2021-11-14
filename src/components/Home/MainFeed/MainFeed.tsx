@@ -1,7 +1,12 @@
 import styled from 'styled-components';
+import ShareBox from './ShareBox';
 
 function MainFeed(): JSX.Element {
-  return <Container>Main Feed</Container>;
+  return (
+    <Container>
+      <ShareBox />
+    </Container>
+  );
 }
 
 export default MainFeed;
