@@ -41,11 +41,18 @@ const Container = styled.div`
     }
 
     span {
-      color: rgba(0, 0, 0, 0.4);
+      display: none;
     }
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.08);
+    }
+
+    @media (min-width: 768px) {
+      span {
+        display: block;
+        color: rgba(0, 0, 0, 0.4);
+      }
     }
   }
 `;

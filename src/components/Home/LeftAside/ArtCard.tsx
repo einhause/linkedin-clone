@@ -88,4 +88,8 @@ const AddPhotoText = styled.p`
   font-size: 0.75rem;
   line-height: 1.33;
   font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

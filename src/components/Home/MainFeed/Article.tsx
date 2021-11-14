@@ -51,6 +51,24 @@ function Article(): JSX.Element {
           </CommentLinkContainer>
         </li>
       </SocialCounts>
+      <Interactions>
+        <button>
+          <img src='/images/like-icon.svg' alt='like' />
+          <span>Like</span>
+        </button>
+        <button>
+          <img src='/images/comments-icon.svg' alt='comments' />
+          <span>Comments</span>
+        </button>
+        <button>
+          <img src='/images/share-icon.svg' alt='share' />
+          <span>Share</span>
+        </button>
+        <button>
+          <img src='/images/send-icon.svg' alt='send' />
+          <span>Send</span>
+        </button>
+      </Interactions>
     </Container>
   );
 }
@@ -168,6 +186,10 @@ const SocialCounts = styled.ul`
       color: rgba(0, 0, 0, 0.6);
       align-self: center;
       margin-left: 0.25rem;
+      &:hover {
+        color: #7eaddc;
+        text-decoration: underline;
+      }
     }
   }
 `;
@@ -175,5 +197,42 @@ const SocialCounts = styled.ul`
 const CommentLinkContainer = styled.div`
   & > ${StyledLink} {
     color: rgba(0, 0, 0, 0.6);
+    &:hover {
+      color: #7eaddc;
+      text-decoration: underline;
+    }
+  }
+`;
+
+const Interactions = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  min-height: 2.5rem;
+  padding: 0.25rem 0.5rem;
+
+  button {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem;
+    color: rgba(0, 0, 0, 0.6);
+    border-radius: 0.5rem;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+
+    @media (min-width: 768px) {
+      span {
+        display: block;
+        margin-left: 0.35rem;
+      }
+    }
+  }
+
+  span {
+    display: none;
   }
 `;

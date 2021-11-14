@@ -30,6 +30,7 @@ const StyledLink = styled(Link)`
   justify-content: space-between;
   align-items: center;
   padding: 0.25rem 0.75rem;
+  transition: background-color 0.15s ease-in-out;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.08);

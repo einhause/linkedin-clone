@@ -43,6 +43,7 @@ const Container = styled.ul`
     }
 
     button {
+      cursor: pointer;
       background-color: transparent;
       color: rgba(0, 0, 0, 0.6);
       box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
@@ -57,6 +58,12 @@ const Container = styled.ul`
       max-width: 30rem;
       text-align: center;
       outline: none;
+      margin-top: 0.25rem;
+      transition: background-color 0.15s ease-in-out;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
     }
   }
 `;

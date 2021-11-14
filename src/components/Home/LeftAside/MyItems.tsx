@@ -21,6 +21,7 @@ const StyledLink = styled(Link)`
   text-align: left;
   font-size: 0.75rem;
   text-decoration: none;
+  transition: background-color 0.15s ease-in-out;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.08);

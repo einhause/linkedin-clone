@@ -61,6 +61,7 @@ const StyledLink = styled(Link)`
     color: rgba(0, 0, 0, 0.6);
     border-top: 1px solid #d6cec2;
     padding: 0.75rem;
+    transition: background-color 0.15s ease-in-out;
     &:hover {
       background-color: rgba(0, 0, 0, 0.08);
     }
