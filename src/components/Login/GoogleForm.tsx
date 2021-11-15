@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state';
+
 function GoogleForm(): JSX.Element {
+  const { signInAPI } = bindActionCreators(actionCreators, useDispatch());
+
   return (
     <Form>
-      <GoogleButton>
+      <GoogleButton onClick={() => signInAPI()}>
         <img src='/images/google.svg' alt='google' />
         <span>Sign in with Google</span>
       </GoogleButton>
