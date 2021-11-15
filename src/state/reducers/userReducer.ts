@@ -3,9 +3,9 @@ import { Action } from '../actions';
 
 import { auth, provider } from '../../firebase';
 
-interface InitialStateType {
+type InitialStateType = {
   user: string | null;
-}
+};
 
 const INITIAL_STATE: InitialStateType = {
   user: null,
@@ -20,7 +20,7 @@ const userReducer = (
       auth
         .signInWithPopup(provider)
         .then((payload: any) => {
-          console.log(typeof payload, payload);
+          return { ...state, user: payload.user };
         })
         .catch((err: any) => alert(err.message));
       return state;
