@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import NavItem from './NavItem';
 
+import { useAppSelector } from '../../../state';
+
 function GlobalNav(): JSX.Element {
+  const { user } = useAppSelector((state) => state.user);
+  console.log(user);
+
   return (
     <Nav>
       <NavList>
@@ -28,7 +33,7 @@ function GlobalNav(): JSX.Element {
           spanText='Notifications'
         />
         <NavItem
-          imgSrc='/images/user.svg'
+          imgSrc={user?.photoURL ? user.photoURL : '/images/user.svg'}
           link='/home'
           spanText='Me'
           isUserItem
@@ -69,7 +74,7 @@ const NavList = styled.ul`
       content: '';
       transform: scaleX(1);
       border-bottom: 0.125rem solid white;
-      bottom: 0;
+      bottom: -0.35rem;
       left: 0;
       position: absolute;
       transition: transform 0.2s ease-in-out;

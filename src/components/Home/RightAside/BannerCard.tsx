@@ -4,7 +4,7 @@ function BannerCard() {
   return (
     <Container>
       <img
-        src='https://static-exp1.licdn.com/scds/common/u/images/promo/ads/li_evergreen_jobs_ad_300x250_v1.jpg'
+        src='https://images.unsplash.com/photo-1585288766827-c62e98d70191?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
         alt='Banner'
       />
     </Container>

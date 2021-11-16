@@ -16,3 +16,16 @@ export function signInAPI() {
       .catch((err) => alert(err.message));
   };
 }
+
+export function getUserAuth() {
+  return (dispatch: Dispatch<Action>) => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        dispatch({
+          type: ActionType.SET_USER,
+          user,
+        });
+      }
+    });
+  };
+}
