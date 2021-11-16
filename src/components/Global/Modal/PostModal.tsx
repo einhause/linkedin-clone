@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import ReactPlayer from 'react-player';
 
 import { actionCreators, useAppDispatch } from '../../../state';
 import { bindActionCreators } from 'redux';
-import UpworkBanner from '../../Home/UpworkBanner';
 
 function PostModal(): JSX.Element {
   const [editorText, setEditorText] = useState<string>('');
   const [shareImage, setShareImage] = useState<File | null>(null);
+  const [videoLink, setVideoLink] = useState<string>('');
+  const [assetArea, setAssetArea] = useState<string>('');
 
   const handleImageChange = (files: FileList) => {
     const image = files[0];
@@ -16,11 +18,20 @@ function PostModal(): JSX.Element {
     setShareImage(image);
   };
 
+  const switchAssetArea = (area: string) => {
+    setShareImage(null);
+    setVideoLink('');
+    setAssetArea(area);
+  };
+
   const dispatch = useAppDispatch();
   const { toggleModal } = bindActionCreators(actionCreators, dispatch);
 
   const resetAndCloseModal = () => {
     setEditorText('');
+    setShareImage(null);
+    setVideoLink('');
+    setAssetArea('');
     toggleModal();
   };
 
@@ -44,26 +55,40 @@ function PostModal(): JSX.Element {
               autoFocus={true}
             />
           </Editor>
-          <UploadImage>
-            <input
-              type='file'
-              accept='image/gif, image/jpeg, image/png'
-              name='image'
-              id='file'
-              onChange={(e) => handleImageChange(e.target.files as FileList)}
-            />
-            <p>
-              <label htmlFor='file'>Select an image to share</label>
-            </p>
-            {shareImage && <img src={URL.createObjectURL(shareImage)} />}
-          </UploadImage>
+          {assetArea === 'image' ? (
+            <UploadImage>
+              <input
+                type='file'
+                accept='image/gif, image/jpeg, image/png'
+                name='image'
+                id='file'
+                onChange={(e) => handleImageChange(e.target.files as FileList)}
+              />
+              <p>
+                <label htmlFor='file'>Select an image to share</label>
+              </p>
+              {shareImage && <img src={URL.createObjectURL(shareImage)} />}
+            </UploadImage>
+          ) : assetArea === 'video' ? (
+            <UploadVideoLink>
+              <input
+                type='text'
+                placeholder='Please insert a video link'
+                value={videoLink}
+                onChange={(e) => setVideoLink(e.target.value)}
+              />
+              {videoLink && <ReactPlayer width={'100%'} url={videoLink} />}
+            </UploadVideoLink>
+          ) : (
+            <></>
+          )}
         </SharedContent>
         <ShareCreation>
           <AttachMedia>
-            <AssetButton>
+            <AssetButton onClick={() => setAssetArea('image')}>
               <img src='/images/modal-share-image.svg' alt='share image' />
             </AssetButton>
-            <AssetButton>
+            <AssetButton onClick={() => setAssetArea('video')}>
               <img src='/images/modal-share-video.svg' alt='share video' />
             </AssetButton>
           </AttachMedia>
@@ -195,6 +220,11 @@ const UploadImage = styled.div`
   }
 `;
 
+const UploadVideoLink = styled.div`
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+`;
+
 const ShareCreation = styled.div`
   display: flex;
   justify-content: space-between;
@@ -202,6 +232,7 @@ const ShareCreation = styled.div`
 `;
 
 const AssetButton = styled.button`
+  cursor: pointer;
   display: flex;
   align-items: center;
   height: 2.5rem;
