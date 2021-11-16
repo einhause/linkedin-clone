@@ -4,7 +4,18 @@ import LoginNav from '../components/Login/LoginNav';
 import Hero from '../components/Login/Hero';
 import GoogleForm from '../components/Login/GoogleForm';
 
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { useAppSelector } from '../state';
+
 function Login(): JSX.Element {
+  const { user } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate('/home');
+  });
+
   return (
     <Container>
       <LoginNav />

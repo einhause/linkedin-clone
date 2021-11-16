@@ -1,7 +1,13 @@
 import { ActionType } from '../action-types';
+import firebase from 'firebase/app';
 
-interface SignInAction {
-  type: ActionType.SIGNIN;
+interface SetUserAction {
+  type: ActionType.SET_USER;
+  user: firebase.User | null;
 }
 
-export type Action = SignInAction;
+interface SignInApi {
+  type: ActionType.SIGN_IN_API;
+}
+
+export type Action = SetUserAction | SignInApi;

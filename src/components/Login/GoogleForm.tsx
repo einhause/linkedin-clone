@@ -1,11 +1,11 @@
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../state';
+import { useAppDispatch, actionCreators } from '../../state';
 
 function GoogleForm(): JSX.Element {
-  const { signInAPI } = bindActionCreators(actionCreators, useDispatch());
+  const dispatch = useAppDispatch();
+  const { signInAPI } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <Form>

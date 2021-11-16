@@ -1,29 +1,19 @@
 import { ActionType } from '../action-types';
 import { Action } from '../actions';
+import firebase from 'firebase/app';
 
-import { auth, provider } from '../../firebase';
-
-type InitialStateType = {
-  user: string | null;
+type StateType = {
+  user: firebase.User | null;
 };
 
-const INITIAL_STATE: InitialStateType = {
+export const INITIAL_STATE: StateType = {
   user: null,
 };
 
-const userReducer = (
-  state: InitialStateType = INITIAL_STATE,
-  action: Action
-) => {
+const userReducer = (state: StateType = INITIAL_STATE, action: Action) => {
   switch (action.type) {
-    case ActionType.SIGNIN:
-      auth
-        .signInWithPopup(provider)
-        .then((payload: any) => {
-          return { ...state, user: payload.user };
-        })
-        .catch((err: any) => alert(err.message));
-      return state;
+    case ActionType.SET_USER:
+      return { ...state, user: action.user };
     default:
       return state;
   }
