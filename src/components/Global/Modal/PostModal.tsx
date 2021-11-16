@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player';
+import firebase from 'firebase';
 
 import { actionCreators, useAppDispatch, useAppSelector } from '../../../state';
 import { bindActionCreators } from 'redux';
+import { postArticleAPI } from '../../../state/action-creators';
 
 function PostModal(): JSX.Element {
   const [editorText, setEditorText] = useState<string>('');
@@ -22,6 +24,19 @@ function PostModal(): JSX.Element {
     setShareImage(null);
     setVideoLink('');
     setAssetArea(area);
+  };
+
+  const postArticle = () => {
+    const payload = {
+      image: shareImage,
+      video: videoLink,
+      user: user,
+      description: editorText,
+      timestamp: firebase.firestore.Timestamp.now(),
+    };
+
+    postArticleAPI(payload);
+    resetAndCloseModal();
   };
 
   const dispatch = useAppDispatch();
@@ -99,7 +114,9 @@ function PostModal(): JSX.Element {
               <span>Anyone</span>
             </AssetButton>
           </ShareComment>
-          <PostButton disabled={!editorText}>Post</PostButton>
+          <PostButton disabled={!editorText} onClick={() => postArticle()}>
+            Post
+          </PostButton>
         </ShareCreation>
       </Content>
     </Container>
