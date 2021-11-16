@@ -9,12 +9,17 @@ function PostModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const { toggleModal } = bindActionCreators(actionCreators, dispatch);
 
+  const resetAndCloseModal = () => {
+    setEditorText('');
+    toggleModal();
+  };
+
   return (
     <Container>
       <Content>
         <Header>
           <h2>Create a post</h2>
-          <button onClick={() => toggleModal()}>&times;</button>
+          <button onClick={() => resetAndCloseModal()}>&times;</button>
         </Header>
         <SharedContent>
           <UserInfo>
@@ -45,7 +50,7 @@ function PostModal(): JSX.Element {
               <span>Anyone</span>
             </AssetButton>
           </ShareComment>
-          <PostButton>Post</PostButton>
+          <PostButton disabled={!editorText}>Post</PostButton>
         </ShareCreation>
       </Content>
     </Container>
@@ -60,6 +65,16 @@ const Container = styled.div`
   z-index: 9999;
   color: #000;
   background-color: rgba(0, 0, 0, 0.8);
+  animation: fadeIn 0.3s;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 const Content = styled.div`
   width: 100%;
@@ -191,5 +206,10 @@ const PostButton = styled.button`
 
   &:hover {
     background-color: #004182;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: rgba(0, 0, 0, 0.4);
   }
 `;
