@@ -5,7 +5,6 @@ import { useAppSelector } from '../../../state';
 
 function GlobalNav(): JSX.Element {
   const { user } = useAppSelector((state) => state.user);
-  console.log(user);
 
   return (
     <Nav>

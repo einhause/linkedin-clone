@@ -29,3 +29,17 @@ export function getUserAuth() {
     });
   };
 }
+
+export function signOutAPI() {
+  return (dispatch: Dispatch<Action>) => {
+    auth
+      .signOut()
+      .then(() => {
+        dispatch({
+          type: ActionType.SET_USER,
+          user: null,
+        });
+      })
+      .catch((err) => alert(err.message));
+  };
+}

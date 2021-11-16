@@ -6,7 +6,18 @@ import LeftAside from '../components/Home/LeftAside/LeftAside';
 import MainFeed from '../components/Home/MainFeed/MainFeed';
 import RightAside from '../components/Home/RightAside/RightAside';
 
+import { useEffect } from 'react';
+import { useAppSelector } from '../state';
+import { useNavigate } from 'react-router';
+
 function Home(): JSX.Element {
+  const { user } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) navigate('/');
+  });
+
   return (
     <>
       <Header />

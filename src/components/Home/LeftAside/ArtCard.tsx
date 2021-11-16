@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import Connections from './Connections';
 import MyItems from './MyItems';
 
+import { useAppSelector } from '../../../state';
+
 function ArtCard(): JSX.Element {
+  const { user } = useAppSelector((state) => state.user);
+
   return (
     <Container>
       <UserInfo>
@@ -12,7 +16,7 @@ function ArtCard(): JSX.Element {
 
         <StyledLink to='/home'>
           <Photo />
-          <Greeting>Welcome, there!</Greeting>
+          <Greeting>Welcome, {user?.displayName ?? 'there'}!</Greeting>
         </StyledLink>
         <StyledLink to='/home'>
           <AddPhotoText>Add a photo</AddPhotoText>

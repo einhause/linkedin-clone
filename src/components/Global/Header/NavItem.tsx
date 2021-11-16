@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { useAppDispatch, actionCreators } from '../../../state';
+import { bindActionCreators } from 'redux';
+
 interface NavItemProps {
   imgSrc: string;
   spanText: string;
@@ -11,6 +14,9 @@ interface NavItemProps {
 }
 
 function NavItem(props: NavItemProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { signOutAPI } = bindActionCreators(actionCreators, dispatch);
+
   const { imgSrc, spanText, link, isActive, isUserItem, isWorkItem } = props;
   return (
     <NavListItem
@@ -30,9 +36,7 @@ function NavItem(props: NavItemProps): JSX.Element {
       {/* User Nav Item Only */}
       {isUserItem && (
         <SignOutDropDown>
-          <StyledLink to='/'>
-            <span>Sign Out</span>
-          </StyledLink>
+          <button onClick={() => signOutAPI()}>Sign Out</button>
         </SignOutDropDown>
       )}
     </NavListItem>
@@ -43,7 +47,7 @@ export default NavItem;
 
 const SignOutDropDown = styled.div`
   position: absolute;
-  top: 2.5rem;
+  bottom: -2rem;
   background: white;
   border-radius: 0 0 0.625rem 0.625rem;
   width: 6.25rem;
@@ -69,6 +73,11 @@ const NavListItem = styled.li<NavListItemProps>`
       display: flex;
       justify-content: center;
       align-items: center;
+
+      button {
+        cursor: pointer;
+        font-size: 0.75rem;
+      }
     }
   }
 `;
