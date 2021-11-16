@@ -3,9 +3,19 @@ import styled from 'styled-components';
 
 import { actionCreators, useAppDispatch } from '../../../state';
 import { bindActionCreators } from 'redux';
+import UpworkBanner from '../../Home/UpworkBanner';
 
 function PostModal(): JSX.Element {
-  const [editorText, setEditorText] = useState('');
+  const [editorText, setEditorText] = useState<string>('');
+  const [shareImage, setShareImage] = useState<File | null>(null);
+
+  const handleImageChange = (files: FileList) => {
+    const image = files[0];
+    if (!image) return alert('Invalid image.');
+
+    setShareImage(image);
+  };
+
   const dispatch = useAppDispatch();
   const { toggleModal } = bindActionCreators(actionCreators, dispatch);
 
@@ -32,8 +42,21 @@ function PostModal(): JSX.Element {
               onChange={(e) => setEditorText(e.target.value)}
               placeholder='What do you want to talk about?'
               autoFocus={true}
-            ></textarea>
+            />
           </Editor>
+          <UploadImage>
+            <input
+              type='file'
+              accept='image/gif, image/jpeg, image/png'
+              name='image'
+              id='file'
+              onChange={(e) => handleImageChange(e.target.files as FileList)}
+            />
+            <p>
+              <label htmlFor='file'>Select an image to share</label>
+            </p>
+            {shareImage && <img src={URL.createObjectURL(shareImage)} />}
+          </UploadImage>
         </SharedContent>
         <ShareCreation>
           <AttachMedia>
@@ -156,6 +179,19 @@ const Editor = styled.div`
     height: 2.25rem;
     font-size: 1rem;
     margin-bottom: 1.25rem;
+  }
+`;
+
+const UploadImage = styled.div`
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+
+  img {
+    width: 100%;
+  }
+
+  input {
+    display: none;
   }
 `;
 
