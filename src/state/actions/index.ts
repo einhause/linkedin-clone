@@ -10,4 +10,8 @@ interface SignInApi {
   type: ActionType.SIGN_IN_API;
 }
 
-export type Action = SetUserAction | SignInApi;
+interface TogglePostModal {
+  type: ActionType.TOGGLE_POST_MODAL;
+}
+
+export type Action = SetUserAction | SignInApi | TogglePostModal;

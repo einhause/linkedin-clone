@@ -43,3 +43,11 @@ export function signOutAPI() {
       .catch((err) => alert(err.message));
   };
 }
+
+export function toggleModal() {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.TOGGLE_POST_MODAL,
+    });
+  };
+}

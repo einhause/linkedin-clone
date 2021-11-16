@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
+import { actionCreators, useAppDispatch } from '../../../state';
+import { bindActionCreators } from 'redux';
+
 function SharePostRow() {
+  const dispatch = useAppDispatch();
+  const { toggleModal } = bindActionCreators(actionCreators, dispatch);
+
   return (
     <Container>
       <img src='/images/user.svg' alt='User' />
-      <button>Start a post</button>
+      <button onClick={() => toggleModal()}>Start a post</button>
     </Container>
   );
 }
