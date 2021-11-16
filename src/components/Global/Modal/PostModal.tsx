@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player';
 
-import { actionCreators, useAppDispatch } from '../../../state';
+import { actionCreators, useAppDispatch, useAppSelector } from '../../../state';
 import { bindActionCreators } from 'redux';
 
 function PostModal(): JSX.Element {
@@ -26,6 +26,7 @@ function PostModal(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const { toggleModal } = bindActionCreators(actionCreators, dispatch);
+  const { user } = useAppSelector((state) => state.user);
 
   const resetAndCloseModal = () => {
     setEditorText('');
@@ -44,8 +45,8 @@ function PostModal(): JSX.Element {
         </Header>
         <SharedContent>
           <UserInfo>
-            <img src='/images/user.svg' alt='user' />
-            <span>Name</span>
+            <img src={user?.photoURL ?? '/images/user.svg'} alt='user' />
+            <span>{user?.displayName ?? 'User'}</span>
           </UserInfo>
           <Editor>
             <textarea
@@ -85,10 +86,10 @@ function PostModal(): JSX.Element {
         </SharedContent>
         <ShareCreation>
           <AttachMedia>
-            <AssetButton onClick={() => setAssetArea('image')}>
+            <AssetButton onClick={() => switchAssetArea('image')}>
               <img src='/images/modal-share-image.svg' alt='share image' />
             </AssetButton>
-            <AssetButton onClick={() => setAssetArea('video')}>
+            <AssetButton onClick={() => switchAssetArea('video')}>
               <img src='/images/modal-share-video.svg' alt='share video' />
             </AssetButton>
           </AttachMedia>
