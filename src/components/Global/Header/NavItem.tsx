@@ -67,7 +67,7 @@ const SignOutDropDown = styled.div`
   border-radius: 0 0 5px 5px;
   width: 100px;
   height: 40px;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   transition: all ease-in 0.25s;
   display: flex;
   justify-content: center;
@@ -83,7 +83,7 @@ const SignOutDropDown = styled.div`
   }
 
   @media (max-width: 950px) {
-    right: 0.5rem;
+    right: 0.75rem;
   }
 `;
 
@@ -91,18 +91,6 @@ interface NavListItemProps {
   borderLeft?: boolean;
   isSmallScreen?: boolean;
 }
-const NavListItem = styled.li<NavListItemProps>`
-  display: ${(props) => (props.isSmallScreen ? 'none' : 'flex')};
-  @media (max-width: 950px) {
-    display: ${(props) => props.isSmallScreen && 'flex'};
-  }
-
-  align-items: center;
-  justify-content: center;
-  border-left: ${(props) =>
-    props.borderLeft ? '1px solid rgba(0, 0, 0, .08)' : 'none'};
-  position: relative;
-`;
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -139,5 +127,38 @@ const StyledLink = styled(Link)`
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
+  }
+
+  @media (max-width: 360px) {
+    min-width: 3rem;
+    span {
+      display: none;
+    }
+  }
+`;
+
+const NavListItem = styled.li<NavListItemProps>`
+  display: ${(props) => (props.isSmallScreen ? 'none' : 'flex')};
+  @media (max-width: 950px) {
+    display: ${(props) => props.isSmallScreen && 'flex'};
+  }
+
+  align-items: center;
+  justify-content: center;
+  border-left: ${(props) =>
+    props.borderLeft ? '1px solid rgba(0, 0, 0, .08)' : 'none'};
+  position: relative;
+
+  @media (max-width: 950px) {
+    ${StyledLink} {
+      img {
+        width: ${(props) => props.isSmallScreen && '2.5rem'};
+        height: ${(props) => props.isSmallScreen && '2.5rem'};
+        margin-right: ${(props) => props.isSmallScreen && '2rem'};
+      }
+      span {
+        display: ${(props) => props.isSmallScreen && 'none'};
+      }
+    }
   }
 `;

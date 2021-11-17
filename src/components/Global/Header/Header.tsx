@@ -48,9 +48,9 @@ const Content = styled.div`
   align-items: center;
   margin: 0 auto;
   min-height: 100%;
-  max-width: 65rem;
+  max-width: 70rem;
 
-  @media (max-width: 70rem) {
+  @media (max-width: 73rem) {
     margin: 0 2.5rem 0 1rem;
   }
 
