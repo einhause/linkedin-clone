@@ -5,7 +5,6 @@ interface SetUserAction {
   type: ActionType.SET_USER;
   user: firebase.User | null;
 }
-
 interface SignInApi {
   type: ActionType.SIGN_IN_API;
 }
@@ -13,6 +12,10 @@ interface SignInApi {
 interface SetArticleLoading {
   type: ActionType.SET_ARTICLE_LOADING;
   isLoading: boolean;
+}
+interface GetArticles {
+  type: ActionType.GET_ARTICLES;
+  articles: firebase.firestore.DocumentData[];
 }
 
 interface TogglePostModal {
@@ -23,4 +26,5 @@ export type Action =
   | SetUserAction
   | SignInApi
   | TogglePostModal
-  | SetArticleLoading;
+  | SetArticleLoading
+  | GetArticles;

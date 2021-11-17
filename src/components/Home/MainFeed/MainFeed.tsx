@@ -1,24 +1,53 @@
 import styled from 'styled-components';
+import { useEffect } from 'react';
 
 import Article from './Article';
 import ShareBox from './ShareBox';
 import PostModal from '../../Global/Modal/PostModal';
 
-import { useAppSelector } from '../../../state';
+import { useAppSelector, useAppDispatch, actionCreators } from '../../../state';
+import { bindActionCreators } from 'redux';
 
 function MainFeed(): JSX.Element {
+  const { getArticleAPI } = bindActionCreators(
+    actionCreators,
+    useAppDispatch()
+  );
+
+  const { articles } = useAppSelector((state) => state.article);
+
+  useEffect(() => {
+    getArticleAPI();
+  });
+
   const {
     article: { loading: articleIsUploading },
     modal: { modalIsOpen },
   } = useAppSelector((state) => state);
 
   return (
-    <Container>
-      <ShareBox />
-      {articleIsUploading && <LoadingContainer />}
-      <Article />
-      {modalIsOpen && <PostModal />}
-    </Container>
+    <>
+      {articles.length === 0 ? (
+        <p>There is no content to display.</p>
+      ) : (
+        <Container>
+          <ShareBox />
+          {articleIsUploading && <LoadingContainer />}
+          {articles.length > 0 &&
+            articles.map((article, idx) => (
+              <Article
+                key={idx}
+                actor={article.actor}
+                comments={article.comments}
+                description={article.description}
+                sharedImg={article.sharedImg}
+                video={article.video}
+              />
+            ))}
+          {modalIsOpen && <PostModal />}
+        </Container>
+      )}
+    </>
   );
 }
 

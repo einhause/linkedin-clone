@@ -54,7 +54,6 @@ interface payloadType {
   description: string;
   timestamp: firebase.firestore.Timestamp;
 }
-
 export function postArticleAPI(payload: payloadType) {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
@@ -119,6 +118,21 @@ export function postArticleAPI(payload: payloadType) {
         isLoading: false,
       });
     }
+  };
+}
+
+export function getArticleAPI() {
+  return (dispatch: Dispatch<Action>) => {
+    let articles;
+    db.collection('articles')
+      .orderBy('actor.date', 'desc')
+      .onSnapshot((snapshot) => {
+        articles = snapshot.docs.map((doc) => doc.data());
+        dispatch({
+          type: ActionType.GET_ARTICLES,
+          articles,
+        });
+      });
   };
 }
 

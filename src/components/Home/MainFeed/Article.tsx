@@ -1,19 +1,50 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ReactPlayer from 'react-player';
+import firebase from 'firebase/app';
 
 import CommonCard from '../../Global/Home/CommonCard';
 
-function Article(): JSX.Element {
+interface ArticleProps {
+  actor: {
+    date: firebase.firestore.Timestamp;
+    description: string;
+    image: string;
+    title: string;
+  };
+  comments: number;
+  description: number;
+  sharedImg: string;
+  video: string;
+}
+
+function Article(props: ArticleProps): JSX.Element {
+  const {
+    actor: {
+      date: postDate,
+      description: email,
+      image: userImg,
+      title: postUsername,
+    },
+    comments,
+    description,
+    sharedImg,
+    video,
+  } = props;
   return (
     <Container>
       <SharedActor>
         <StyledLink to='/home'>
           <UserPostInfo>
-            <UserImg src='/images/user.svg' alt='user' />
+            <UserImg src={userImg} alt='user' />
             <div>
-              <span>Title</span>
-              <span>Info</span>
-              <span>Date</span>
+              <span>{postUsername}</span>
+              <span>{email}</span>
+              <span>
+                {postDate.toDate().toLocaleDateString()}
+                {' at '}
+                {postDate.toDate().toLocaleTimeString()}
+              </span>
             </div>
           </UserPostInfo>
         </StyledLink>
@@ -21,11 +52,17 @@ function Article(): JSX.Element {
           <img src='/images/ellipsis.svg' alt='more' />
         </button>
       </SharedActor>
-      <Description>Des</Description>
+      <Description>{description}</Description>
       <SharedImgContainer>
-        <StyledLink to='/home'>
-          <img src='/images/trees.jpeg' alt='sharedimg' />
-        </StyledLink>
+        {sharedImg && !video ? (
+          <StyledLink to='/home'>
+            <img src={sharedImg} alt='sharedimg' />
+          </StyledLink>
+        ) : !sharedImg && video ? (
+          <ReactPlayer width={'100%'} url={video} />
+        ) : (
+          <></>
+        )}
       </SharedImgContainer>
       <SocialCounts>
         <li>
@@ -42,12 +79,12 @@ function Article(): JSX.Element {
               src='https://static-exp1.licdn.com/sc/h/cpho5fghnpme8epox8rdcds22'
               alt='empathy'
             />
-            <span>75</span>
+            {/* <span>75</span> */}
           </button>
         </li>
         <li>
           <CommentLinkContainer>
-            <StyledLink to='/home'>2 comments</StyledLink>
+            <StyledLink to='/home'>{comments} comments</StyledLink>
           </CommentLinkContainer>
         </li>
       </SocialCounts>
