@@ -269,7 +269,7 @@ const Interactions = styled.div`
       background-color: rgba(0, 0, 0, 0.08);
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 1000px) {
       span {
         display: block;
         margin-left: 0.35rem;

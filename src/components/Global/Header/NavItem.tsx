@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import { useAppDispatch, actionCreators } from '../../../state';
 import { bindActionCreators } from 'redux';
@@ -11,17 +12,30 @@ interface NavItemProps {
   isActive?: boolean;
   isUserItem?: boolean;
   isWorkItem?: boolean;
+  isSmallScreenOnly?: boolean;
 }
 
 function NavItem(props: NavItemProps): JSX.Element {
   const dispatch = useAppDispatch();
   const { signOutAPI } = bindActionCreators(actionCreators, dispatch);
 
-  const { imgSrc, spanText, link, isActive, isUserItem, isWorkItem } = props;
+  const [showDropDown, setShowDropDown] = useState(true);
+
+  const {
+    imgSrc,
+    spanText,
+    link,
+    isActive,
+    isUserItem,
+    isWorkItem,
+    isSmallScreenOnly,
+  } = props;
   return (
     <NavListItem
       className={isActive ? 'active' : ''}
       borderLeft={isWorkItem as boolean}
+      isSmallScreen={isSmallScreenOnly as boolean}
+      onClick={() => setShowDropDown(!showDropDown)}
     >
       <StyledLink to={link}>
         <img src={imgSrc} alt={spanText} />
@@ -31,10 +45,11 @@ function NavItem(props: NavItemProps): JSX.Element {
             <img src='/images/down-icon.svg' alt='Down' />
           )}
         </span>
+
+        {/* User Nav Item Only */}
       </StyledLink>
 
-      {/* User Nav Item Only */}
-      {isUserItem && (
+      {isUserItem && showDropDown && (
         <SignOutDropDown>
           <button onClick={() => signOutAPI()}>Sign Out</button>
         </SignOutDropDown>
@@ -47,39 +62,46 @@ export default NavItem;
 
 const SignOutDropDown = styled.div`
   position: absolute;
-  bottom: -2rem;
+  top: 2.75rem;
   background: white;
-  border-radius: 0 0 0.625rem 0.625rem;
-  width: 6.25rem;
-  height: 2.5rem;
-  font-size: 1rem;
-  transition-duration: 167ms;
-  text-align: center;
-  display: none;
+  border-radius: 0 0 5px 5px;
+  width: 100px;
+  height: 40px;
+  font-size: 0.75rem;
+  transition: all ease-in 0.25s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    cursor: pointer;
+    color: #0a66c2;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 950px) {
+    right: 0.5rem;
+  }
 `;
 
 interface NavListItemProps {
   borderLeft?: boolean;
+  isSmallScreen?: boolean;
 }
 const NavListItem = styled.li<NavListItemProps>`
-  display: flex;
+  display: ${(props) => (props.isSmallScreen ? 'none' : 'flex')};
+  @media (max-width: 950px) {
+    display: ${(props) => props.isSmallScreen && 'flex'};
+  }
+
   align-items: center;
   justify-content: center;
   border-left: ${(props) =>
     props.borderLeft ? '1px solid rgba(0, 0, 0, .08)' : 'none'};
-
-  &:hover {
-    ${SignOutDropDown} {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      button {
-        cursor: pointer;
-        font-size: 0.75rem;
-      }
-    }
-  }
+  position: relative;
 `;
 
 const StyledLink = styled(Link)`

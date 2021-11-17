@@ -3,14 +3,28 @@ import styled from 'styled-components';
 import Brand from './Brand';
 import Search from './Search';
 import GlobalNav from './GlobalNav';
+import NavItem from './NavItem';
+
+import { useAppSelector } from '../../../state';
 
 function Header(): JSX.Element {
+  const { user } = useAppSelector((state) => state.user);
+
   return (
     <Container>
       <Content>
         <Brand />
         <Search />
         <GlobalNav />
+
+        {/* Navitem for mobile user signout */}
+        <NavItem
+          imgSrc={user?.photoURL ? user.photoURL : '/images/user.svg'}
+          link='/home'
+          spanText='Me'
+          isUserItem
+          isSmallScreenOnly
+        />
       </Content>
     </Container>
   );
@@ -34,5 +48,14 @@ const Content = styled.div`
   align-items: center;
   margin: 0 auto;
   min-height: 100%;
-  max-width: 70rem;
+  max-width: 65rem;
+
+  @media (max-width: 70rem) {
+    margin: 0 2.5rem 0 1rem;
+  }
+
+  @media (max-width: 950px) {
+    justify-content: space-between;
+    margin: 0 1.5rem 0 0;
+  }
 `;

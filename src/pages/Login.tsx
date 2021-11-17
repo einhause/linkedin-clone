@@ -17,6 +17,7 @@ function Login(): JSX.Element {
   useEffect(() => {
     getUserAuth();
     if (user) navigate('/home');
+    // eslint-disable-next-line
   }, [user]);
 
   return (

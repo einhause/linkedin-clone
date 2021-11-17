@@ -19,6 +19,10 @@ const Container = styled.div`
   opacity: 1;
   flex: 1;
   position: relative;
+
+  @media (max-width: 415px) {
+    display: none;
+  }
 `;
 
 const InputContainer = styled.div`

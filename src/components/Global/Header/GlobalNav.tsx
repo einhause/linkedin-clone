@@ -53,13 +53,15 @@ export default GlobalNav;
 const Nav = styled.nav`
   margin-left: auto;
   display: block;
+  flex-basis: 1;
 
-  @media (max-width: 768px) {
+  @media (max-width: 950px) {
     position: fixed;
     left: 0;
     bottom: 0;
     background-color: white;
     width: 100%;
+    padding: 1rem 0 0.35rem 0;
   }
 `;
 
@@ -67,6 +69,14 @@ const NavList = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   list-style-type: none;
+
+  @media (max-width: 950px) {
+    justify-content: space-evenly;
+    & :nth-child(6),
+    & :nth-child(7) {
+      display: none;
+    }
+  }
 
   .active {
     span::after {

@@ -48,7 +48,7 @@ const Container = styled.div`
       background-color: rgba(0, 0, 0, 0.08);
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 1000px) {
       span {
         display: block;
         color: rgba(0, 0, 0, 0.4);

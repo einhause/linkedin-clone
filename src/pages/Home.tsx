@@ -17,9 +17,9 @@ function Home(): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserAuth();
     if (!user) navigate('/');
-  }, [user]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -49,14 +49,14 @@ const Layout = styled.div`
   display: grid;
   grid-template-areas: 'leftaside mainfeed rightaside';
   grid-template-rows: auto;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(18.75rem, 7fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(0, 7fr);
   column-gap: 1.6rem;
   row-gap: 1.6rem;
   margin: 1.6rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 850px) {
     display: flex;
     flex-direction: column;
-    padding: 0 0.625rem;
+    padding: 0 auto;
   }
 `;
