@@ -2,6 +2,7 @@ import { ActionType } from '../action-types';
 import { Action } from '../actions';
 import { Dispatch } from 'redux';
 import db, { auth, provider, storage } from '../../firebase';
+import firebase from 'firebase/app';
 
 /* User State */
 export function signInAPI() {
@@ -46,8 +47,20 @@ export function signOutAPI() {
 }
 
 /* Article State */
-export function postArticleAPI(payload: any) {
+interface payloadType {
+  image: File | null;
+  video: string;
+  user: firebase.User | null;
+  description: string;
+  timestamp: firebase.firestore.Timestamp;
+}
+
+export function postArticleAPI(payload: payloadType) {
   return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_ARTICLE_LOADING,
+      isLoading: true,
+    });
     if (payload?.image) {
       const upload = storage
         .ref(`/images/${payload.image.name}`)
@@ -68,30 +81,42 @@ export function postArticleAPI(payload: any) {
           const downloadURL = await upload.snapshot.ref.getDownloadURL();
           db.collection('articles').add({
             actor: {
-              description: payload.user.email,
-              title: payload.user.displayName,
+              description: payload?.user?.email ?? '',
+              title: payload?.user?.displayName ?? '',
               date: payload.timestamp,
-              image: payload.user.photoURL,
+              image: payload?.user?.photoURL ?? '',
             },
             video: '',
             sharedImg: downloadURL,
             comments: 0,
             description: payload.description,
           });
+          dispatch({
+            type: ActionType.SET_ARTICLE_LOADING,
+            isLoading: false,
+          });
         }
       );
     } else if (payload?.video) {
+      dispatch({
+        type: ActionType.SET_ARTICLE_LOADING,
+        isLoading: true,
+      });
       db.collection('articles').add({
         actor: {
-          description: payload.user.email,
-          title: payload.user.displayName,
+          description: payload?.user?.email ?? '',
+          title: payload?.user?.displayName ?? '',
           date: payload.timestamp,
-          image: payload.user.photoURL,
+          image: payload?.user?.photoURL ?? '',
         },
         video: payload.video,
         sharedImg: '',
         comments: 0,
         description: payload.description,
+      });
+      dispatch({
+        type: ActionType.SET_ARTICLE_LOADING,
+        isLoading: false,
       });
     }
   };

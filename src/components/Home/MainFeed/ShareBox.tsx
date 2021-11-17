@@ -8,7 +8,6 @@ function ShareBox(): JSX.Element {
   return (
     <Container>
       <SharePostRow />
-
       <PostTypeButtonContainer>
         {/* Post type row */}
         <PostTypeButton imgUrl='/images/photo-icon.svg' spanText='Photo' />

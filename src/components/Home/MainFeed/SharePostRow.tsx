@@ -1,16 +1,22 @@
 import styled from 'styled-components';
 
-import { actionCreators, useAppDispatch } from '../../../state';
+import { actionCreators, useAppDispatch, useAppSelector } from '../../../state';
 import { bindActionCreators } from 'redux';
 
 function SharePostRow() {
   const dispatch = useAppDispatch();
   const { toggleModal } = bindActionCreators(actionCreators, dispatch);
+  const {
+    user: { user },
+    article: { loading: articleIsUploading },
+  } = useAppSelector((state) => state);
 
   return (
     <Container>
-      <img src='/images/user.svg' alt='User' />
-      <button onClick={() => toggleModal()}>Start a post</button>
+      <img src={user?.photoURL ?? '/images/user.svg'} alt='User' />
+      <button onClick={() => toggleModal()} disabled={articleIsUploading}>
+        Start a post
+      </button>
     </Container>
   );
 }

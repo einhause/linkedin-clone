@@ -5,13 +5,19 @@ import firebase from 'firebase';
 
 import { actionCreators, useAppDispatch, useAppSelector } from '../../../state';
 import { bindActionCreators } from 'redux';
-import { postArticleAPI } from '../../../state/action-creators';
 
 function PostModal(): JSX.Element {
   const [editorText, setEditorText] = useState<string>('');
   const [shareImage, setShareImage] = useState<File | null>(null);
   const [videoLink, setVideoLink] = useState<string>('');
   const [assetArea, setAssetArea] = useState<string>('');
+
+  const dispatch = useAppDispatch();
+  const { toggleModal, postArticleAPI } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+  const { user } = useAppSelector((state) => state.user);
 
   const handleImageChange = (files: FileList) => {
     const image = files[0];
@@ -26,7 +32,10 @@ function PostModal(): JSX.Element {
     setAssetArea(area);
   };
 
-  const postArticle = () => {
+  const postArticle = (e: any) => {
+    e.preventDefault();
+    if (e.target !== e.currentTarget) return;
+
     const payload = {
       image: shareImage,
       video: videoLink,
@@ -38,10 +47,6 @@ function PostModal(): JSX.Element {
     postArticleAPI(payload);
     resetAndCloseModal();
   };
-
-  const dispatch = useAppDispatch();
-  const { toggleModal } = bindActionCreators(actionCreators, dispatch);
-  const { user } = useAppSelector((state) => state.user);
 
   const resetAndCloseModal = () => {
     setEditorText('');
@@ -114,7 +119,7 @@ function PostModal(): JSX.Element {
               <span>Anyone</span>
             </AssetButton>
           </ShareComment>
-          <PostButton disabled={!editorText} onClick={() => postArticle()}>
+          <PostButton disabled={!editorText} onClick={(e) => postArticle(e)}>
             Post
           </PostButton>
         </ShareCreation>
