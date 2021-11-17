@@ -18,7 +18,8 @@ function MainFeed(): JSX.Element {
 
   useEffect(() => {
     getArticleAPI();
-  });
+    // eslint-disable-next-line
+  }, [articles]);
 
   const {
     article: { loading: articleIsUploading },
@@ -26,28 +27,25 @@ function MainFeed(): JSX.Element {
   } = useAppSelector((state) => state);
 
   return (
-    <>
-      {articles.length === 0 ? (
-        <p>There is no content to display.</p>
+    <Container>
+      <ShareBox />
+      {articleIsUploading && <LoadingContainer />}
+      {articles.length > 0 ? (
+        articles.map((article, idx) => (
+          <Article
+            key={idx}
+            actor={article.actor}
+            comments={article.comments}
+            description={article.description}
+            sharedImg={article.sharedImg}
+            video={article.video}
+          />
+        ))
       ) : (
-        <Container>
-          <ShareBox />
-          {articleIsUploading && <LoadingContainer />}
-          {articles.length > 0 &&
-            articles.map((article, idx) => (
-              <Article
-                key={idx}
-                actor={article.actor}
-                comments={article.comments}
-                description={article.description}
-                sharedImg={article.sharedImg}
-                video={article.video}
-              />
-            ))}
-          {modalIsOpen && <PostModal />}
-        </Container>
+        <NoPosts>There are no posts to display.</NoPosts>
       )}
-    </>
+      {modalIsOpen && <PostModal />}
+    </Container>
   );
 }
 
@@ -84,4 +82,9 @@ const LoadingContainer = styled.div`
       }
     }
   }
+`;
+
+const NoPosts = styled.p`
+  text-align: center;
+  padding-top: 1rem;
 `;

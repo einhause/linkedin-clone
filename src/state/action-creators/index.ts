@@ -96,11 +96,7 @@ export function postArticleAPI(payload: payloadType) {
           });
         }
       );
-    } else if (payload?.video) {
-      dispatch({
-        type: ActionType.SET_ARTICLE_LOADING,
-        isLoading: true,
-      });
+    } else {
       db.collection('articles').add({
         actor: {
           description: payload?.user?.email ?? '',
@@ -108,7 +104,7 @@ export function postArticleAPI(payload: payloadType) {
           date: payload.timestamp,
           image: payload?.user?.photoURL ?? '',
         },
-        video: payload.video,
+        video: payload.video || '',
         sharedImg: '',
         comments: 0,
         description: payload.description,
@@ -124,6 +120,10 @@ export function postArticleAPI(payload: payloadType) {
 export function getArticleAPI() {
   return (dispatch: Dispatch<Action>) => {
     let articles;
+    dispatch({
+      type: ActionType.SET_ARTICLE_LOADING,
+      isLoading: true,
+    });
     db.collection('articles')
       .orderBy('actor.date', 'desc')
       .onSnapshot((snapshot) => {
@@ -133,6 +133,10 @@ export function getArticleAPI() {
           articles,
         });
       });
+    dispatch({
+      type: ActionType.SET_ARTICLE_LOADING,
+      isLoading: false,
+    });
   };
 }
 

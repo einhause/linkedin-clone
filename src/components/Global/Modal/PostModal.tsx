@@ -88,7 +88,9 @@ function PostModal(): JSX.Element {
               <p>
                 <label htmlFor='file'>Select an image to share</label>
               </p>
-              {shareImage && <img src={URL.createObjectURL(shareImage)} />}
+              {shareImage && (
+                <img src={URL.createObjectURL(shareImage)} alt='shared media' />
+              )}
             </UploadImage>
           ) : assetArea === 'video' ? (
             <UploadVideoLink>
@@ -107,6 +109,7 @@ function PostModal(): JSX.Element {
         <ShareCreation>
           <AttachMedia>
             <AssetButton onClick={() => switchAssetArea('image')}>
+              {/* eslint-disable-next-line */}
               <img src='/images/modal-share-image.svg' alt='share image' />
             </AssetButton>
             <AssetButton onClick={() => switchAssetArea('video')}>
@@ -222,7 +225,7 @@ const Editor = styled.div`
     resize: none;
   }
 
-  input {
+  input[type='text'] {
     width: 100%;
     height: 2.25rem;
     font-size: 1rem;

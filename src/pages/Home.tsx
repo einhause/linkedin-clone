@@ -7,16 +7,19 @@ import MainFeed from '../components/Home/MainFeed/MainFeed';
 import RightAside from '../components/Home/RightAside/RightAside';
 
 import { useEffect } from 'react';
-import { useAppSelector } from '../state';
+import { useAppDispatch, useAppSelector, actionCreators } from '../state';
 import { useNavigate } from 'react-router';
+import { bindActionCreators } from 'redux';
 
 function Home(): JSX.Element {
+  const { getUserAuth } = bindActionCreators(actionCreators, useAppDispatch());
   const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
+    getUserAuth();
     if (!user) navigate('/');
-  });
+  }, [user]);
 
   return (
     <>
@@ -37,7 +40,9 @@ export default Home;
 
 const Container = styled.div`
   padding-top: 3.25rem;
-  max-width: 100%;
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
 `;
 
 const Layout = styled.div`

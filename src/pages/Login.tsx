@@ -6,15 +6,18 @@ import GoogleForm from '../components/Login/GoogleForm';
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useAppSelector } from '../state';
+import { useAppSelector, actionCreators, useAppDispatch } from '../state';
+import { bindActionCreators } from 'redux';
 
 function Login(): JSX.Element {
+  const { getUserAuth } = bindActionCreators(actionCreators, useAppDispatch());
   const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
+    getUserAuth();
     if (user) navigate('/home');
-  });
+  }, [user]);
 
   return (
     <Container>
