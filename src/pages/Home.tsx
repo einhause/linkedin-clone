@@ -17,9 +17,10 @@ function Home(): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
+    getUserAuth();
     if (!user) navigate('/');
     // eslint-disable-next-line
-  }, []);
+  }, [user]);
 
   return (
     <>

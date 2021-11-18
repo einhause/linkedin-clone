@@ -61,7 +61,7 @@ const Nav = styled.nav`
     bottom: 0;
     background-color: white;
     width: 100%;
-    padding: 1rem 0 0.35rem 0;
+    padding: 0.5rem 0 0.35rem 0;
   }
 `;
 

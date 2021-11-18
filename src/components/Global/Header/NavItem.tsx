@@ -19,7 +19,12 @@ function NavItem(props: NavItemProps): JSX.Element {
   const dispatch = useAppDispatch();
   const { signOutAPI } = bindActionCreators(actionCreators, dispatch);
 
-  const [showDropDown, setShowDropDown] = useState(true);
+  const [showDropDown, setShowDropDown] = useState(false);
+
+  const handleSignOut = () => {
+    setShowDropDown(false);
+    signOutAPI();
+  };
 
   const {
     imgSrc,
@@ -51,7 +56,7 @@ function NavItem(props: NavItemProps): JSX.Element {
 
       {isUserItem && showDropDown && (
         <SignOutDropDown>
-          <button onClick={() => signOutAPI()}>Sign Out</button>
+          <button onClick={() => handleSignOut()}>Sign Out</button>
         </SignOutDropDown>
       )}
     </NavListItem>
